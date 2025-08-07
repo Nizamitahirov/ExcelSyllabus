@@ -1,0 +1,127 @@
+/* --- Base Styles & Variables --- */
+:root {
+    /* Light Mode */
+    --bg-color: #f4f7fc;
+    --primary-color: #ffffff;
+    --secondary-color: #eef2f9;
+    --text-color: #2c3e50;
+    --text-muted-color: #7f8c8d;
+    --accent-color: #107c41; /* Excel Green */
+    --border-color: #dde4ee;
+    --shadow-color: rgba(44, 62, 80, 0.08);
+    --switch-bg: #dde4ee;
+    --switch-slider: #ffffff;
+    --switch-icon-color: #7f8c8d;
+    --switch-active-bg: #107c41;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+body.dark-mode {
+    /* Dark Mode */
+    --bg-color: #1a1d24;
+    --primary-color: #272c36;
+    --secondary-color: #313846;
+    --text-color: #e0e0e0;
+    --text-muted-color: #a0a0a0;
+    --accent-color: #4CAF50;
+    --border-color: #40485a;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --switch-bg: #40485a;
+    --switch-slider: #272c36;
+    --switch-icon-color: #e0e0e0;
+    --switch-active-bg: #4CAF50;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    padding: 2rem;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.syllabus-container {
+    max-width: 950px; margin: 0 auto; background-color: var(--primary-color);
+    border-radius: var(--border-radius); box-shadow: 0 10px 30px var(--shadow-color);
+    overflow: hidden; transition: background-color var(--transition-speed) ease;
+}
+
+header {
+    padding: 1.5rem 2rem; background-color: var(--secondary-color);
+    border-bottom: 1px solid var(--border-color); display: flex;
+    justify-content: space-between; align-items: center; flex-wrap: wrap;
+    gap: 1rem; transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+header h1 { font-weight: 700; margin-bottom: 0.25rem; font-size: 1.5rem; }
+header p { color: var(--text-muted-color); font-weight: 300; font-size: 0.9rem; }
+.controls { display: flex; align-items: center; gap: 1rem; }
+
+/* --- Toggle Switch Styling --- */
+.switch-container { display: flex; align-items: center; gap: 0.5rem; }
+.toggle-switch { position: relative; display: inline-block; width: 60px; height: 34px; cursor: pointer; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--switch-bg); border-radius: 34px;
+    transition: var(--transition-speed);
+}
+.slider:before {
+    position: absolute; content: ""; height: 26px; width: 26px;
+    left: 4px; bottom: 4px; background-color: var(--switch-slider);
+    border-radius: 50%; transition: var(--transition-speed);
+}
+input:checked + .slider { background-color: var(--switch-active-bg); }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider .icon {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 20px; height: 20px; color: var(--switch-icon-color);
+    transition: opacity var(--transition-speed);
+}
+.slider .sun { left: 7px; opacity: 1; }
+.slider .moon { right: 7px; opacity: 0; }
+input:checked + .slider .sun { opacity: 0; }
+input:checked + .slider .moon { opacity: 1; }
+.text-slider { display: flex; align-items: center; justify-content: space-around; font-size: 12px; font-weight: 700; color: var(--switch-icon-color);}
+.text-slider .lang-text { z-index: 1; }
+input#lang-toggle:checked + .slider.text-slider { background-color: var(--switch-active-bg); }
+
+/* --- Tab Navigation --- */
+.tab-nav { background-color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding: 0 1rem; transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+.tab-nav ul { display: flex; list-style-type: none; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--accent-color) var(--secondary-color); }
+.tab-nav ul::-webkit-scrollbar { height: 5px; }
+.tab-nav ul::-webkit-scrollbar-track { background: var(--secondary-color); }
+.tab-nav ul::-webkit-scrollbar-thumb { background-color: var(--accent-color); border-radius: 10px; }
+.tab-nav li { padding: 0.85rem 1.5rem; cursor: pointer; font-weight: 600; color: var(--text-muted-color); transition: all var(--transition-speed) ease; border-bottom: 3px solid transparent; white-space: nowrap; }
+.tab-nav li:hover { color: var(--text-color); background-color: var(--secondary-color); }
+.tab-nav li.active { color: var(--accent-color); border-bottom-color: var(--accent-color); }
+
+/* --- Tab Content --- */
+.tab-content { padding: 2.5rem; animation: fadeIn 0.5s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+.tab-content h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
+.tab-content > ul { list-style-type: none; padding-left: 0; }
+.tab-content > ul > li { margin-bottom: 1.25rem; padding: 1.25rem; background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); border-radius: 8px; transition: all var(--transition-speed) ease; }
+.tab-content > ul > li:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--shadow-color); }
+.tab-content strong { font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 0.25rem; }
+.tab-content p { color: var(--text-muted-color); }
+
+/* --- Function Syntax Block --- */
+.function-syntax { margin-top: 1rem; padding: 1rem; background-color: var(--primary-color); border: 1px solid var(--border-color); border-radius: 8px; }
+.syntax-header { font-weight: 600; margin-bottom: 0.5rem; color: var(--text-color); }
+.function-syntax code { display: block; background-color: var(--bg-color); padding: 0.75rem; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-weight: bold; color: var(--accent-color); margin-bottom: 1rem; white-space: pre-wrap; word-break: break-all; }
+.function-syntax ul { list-style-type: none; padding-left: 0.5rem; }
+.function-syntax ul li { margin-bottom: 0.5rem; }
+.function-syntax ul li strong { display: inline; font-size: 1rem; color: var(--text-color); }
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    body { padding: 1rem; }
+    header { flex-direction: column; align-items: flex-start; }
+    .controls { width: 100%; justify-content: space-between; }
+    .tab-content { padding: 1.5rem; }
+    .tab-content h2 { font-size: 1.5rem; }
+}
